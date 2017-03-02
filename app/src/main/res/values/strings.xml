@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HeadphonesListener</string>
+    <string name="servicio_detenido">Servicio Detenido</string>
+    <string name="servicio_corriendo">Servicio corriendo</string>
+</resources>
