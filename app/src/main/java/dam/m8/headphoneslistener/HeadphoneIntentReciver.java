@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.RingtoneManager;
@@ -58,7 +59,17 @@ public class HeadphoneIntentReciver extends BroadcastReceiver {
                         .setSound(alarmSound);
 
         //Creamos un intent para abrir el reproductor de musica
-        Intent intent = new Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH);
+        //Intent intent =  new Intent(MediaStore.INTENT_ACTION_MUSIC_PLAYER);
+        Intent intent = null;
+        if (android.os.Build.VERSION.SDK_INT >= 15) {
+            intent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN,
+                    Intent.CATEGORY_APP_MUSIC);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//Min SDK 15
+
+        } else {
+            intent = new Intent("android.intent.action.MUSIC_PLAYER");//Min SDK 8
+
+        }
 
         //Creamos un PendingIntent para cuando el usuario haga click en la notificacion se abra el
         //reproductor de musica
